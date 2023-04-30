@@ -1,6 +1,6 @@
 const baseUrl = 'http://localhost:3000';
 
-async function main() {
+function main() {
   fetch(`${baseUrl}/cards`)
     .then((res) => res.json())
     .then((cards) =>
