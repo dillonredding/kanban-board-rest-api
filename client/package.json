@@ -1,0 +1,12 @@
+{
+  "name": "kanban-board-rest-api-client",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "Dillon Redding",
+  "license": "MIT"
+}
