@@ -1,15 +1,22 @@
 const baseUrl = 'http://localhost:3000';
 
-function nextStage(card) {
-  if (card.stage === 'To-Do') return 'Doing';
-  if (card.stage === 'Doing') return 'Done';
+async function main() {
+  fetch(`${baseUrl}/cards`)
+    .then((res) => res.json())
+    .then((cards) =>
+      cards.forEach((card) => {
+        if (card.stage !== 'Done') {
+          moveToNextStage(card).then((card) => {
+            console.log(`Updated ${card.id} to ${card.stage}`);
+          });
+        }
+      })
+    );
 }
 
 async function moveToNextStage(card) {
   const stage = nextStage(card);
-  if (stage == null) {
-    return;
-  }
+  if (stage == null) return;
 
   const response = await fetch(`${baseUrl}/cards/${card.id}`, {
     method: 'PATCH',
@@ -21,9 +28,10 @@ async function moveToNextStage(card) {
   return await response.json();
 }
 
-async function main() {
-  const cards = await fetch(`${baseUrl}/cards`).then((res) => res.json());
-  console.log(await Promise.all(cards.map(moveToNextStage)));
+function nextStage(card) {
+  if (card.stage === 'To-Do') return 'Doing';
+  if (card.stage === 'Doing') return 'Done';
+  return null;
 }
 
 main();
