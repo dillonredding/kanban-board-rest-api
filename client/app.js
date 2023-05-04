@@ -1,17 +1,15 @@
 const baseUrl = 'http://localhost:3000';
 
-function main() {
-  fetch(`${baseUrl}/cards`)
-    .then((res) => res.json())
-    .then((cards) =>
-      cards.forEach((card) => {
-        if (card.stage !== 'Done') {
-          moveToNextStage(card).then((card) => {
-            console.log(`Updated ${card.id} to ${card.stage}`);
-          });
-        }
-      })
-    );
+async function main() {
+  const cards = await fetch(`${baseUrl}/cards`).then((res) => res.json());
+
+  cards.forEach((card) => {
+    if (card.stage !== 'Done') {
+      moveToNextStage(card).then((card) => {
+        console.log(`Updated ${card.id} to ${card.stage}`);
+      });
+    }
+  });
 }
 
 async function moveToNextStage(card) {

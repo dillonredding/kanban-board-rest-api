@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "seed": "node seed.js",
     "start": "node app.js"
   },
   "keywords": [],
